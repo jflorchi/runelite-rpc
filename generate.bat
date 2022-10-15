@@ -1,0 +1,1 @@
+python -m grpc_tools.protoc --proto_path=src\main\proto src\main\proto\client.proto --python_out=C:\Users\jflorchi\PycharmProjects\paracyte\src --grpc_python_out=C:\Users\jflorchi\PycharmProjects\paracyte\src

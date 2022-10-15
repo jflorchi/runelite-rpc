@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+option java_package = "io.paratek.grpc";
+
+service ClientService {
+  rpc GetCamera(EmptyRequest) returns (Camera) {}
+  rpc GetScreen(EmptyRequest) returns (Screen) {}
+  rpc GetGameState(EmptyRequest) returns (GameState) {}
+  rpc GetLoginState(EmptyRequest) returns (LoginState) {}
+
+  rpc SetLoginInfo(LoginRequest) returns (BooleanResponse) {}
+}
+
+// Generic
+message EmptyRequest {}
+message BooleanResponse {
+  bool status = 1;
+}
+
+message LoginRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message Tile {
+  int32 x = 1;
+  int32 y = 2;
+  int32 plane = 3;
+}
+
+message GameState {
+  int32 state = 1;
+}
+
+message LoginState {
+  int32 state = 1;
+}
+
+message Screen {
+  int32 x = 1;
+  int32 y = 2;
+  int32 width = 3;
+  int32 height = 4;
+}
+
+message Camera {
+  int32 yaw = 1;
+  int32 pitch = 2;
+  int32 z = 3;
+  int32 x = 4;
+  int32 y = 5;
+  int32 zoom = 6;
+}
+
+message Player {
+  string name = 1;
+  int32 animation = 2;
+  int32 movement_animation = 3;
+  Tile region_location = 4;
+  Tile world_location = 5;
+}
