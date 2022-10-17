@@ -7,25 +7,56 @@ service ClientService {
   rpc GetScreen(EmptyRequest) returns (Screen) {}
   rpc GetGameState(EmptyRequest) returns (GameState) {}
   rpc GetLoginState(EmptyRequest) returns (LoginState) {}
+  rpc GetViewPort(EmptyRequest) returns (Rectangle) {}
+  rpc GetMouseInfo(EmptyRequest) returns (MouseInfo) {}
+  rpc GetLocalPlayer(EmptyRequest) returns (Player) {}
+  rpc GetLoadedPlayers(EmptyRequest) returns (LoadedPlayers) {}
 
-  rpc SetLoginInfo(LoginRequest) returns (BooleanResponse) {}
+  rpc SetLoginInfo(LoginInfo) returns (BooleanResponse) {}
 }
 
 // Generic
 message EmptyRequest {}
+
 message BooleanResponse {
   bool status = 1;
 }
 
-message LoginRequest {
-  string username = 1;
-  string password = 2;
+message Rectangle {
+  int32 x = 1;
+  int32 y = 2;
+  int32 width = 3;
+  int32 height = 4;
+}
+
+message Polygon {
+  int32 num_points = 1;
+  repeated int32 x_points = 2 [packed=true];
+  repeated int32 y_points = 3 [packed=true];
+  Rectangle bounds = 4;
+}
+
+message Point {
+  int32 x = 1;
+  int32 y = 2;
 }
 
 message Tile {
   int32 x = 1;
   int32 y = 2;
   int32 plane = 3;
+}
+
+// Unique
+
+message LoginInfo {
+  string username = 1;
+  string password = 2;
+}
+
+message MouseInfo {
+  int32 canvas_x = 1;
+  int32 canvas_y = 2;
 }
 
 message GameState {
@@ -52,10 +83,37 @@ message Camera {
   int32 zoom = 6;
 }
 
+message PlayerComposition {
+  int32 gender = 1;
+  repeated int32 colors = 2 [packed=true];
+  repeated int32 equipment_ids = 3 [packed=true];
+}
+
 message Player {
-  string name = 1;
-  int32 animation = 2;
-  int32 movement_animation = 3;
-  Tile region_location = 4;
-  Tile world_location = 5;
+  int32 id = 1;
+  int32 combat_level = 2;
+  int32 team = 3;
+  bool friends_chat_member = 4;
+  bool friend = 5;
+  bool clan_member = 6;
+  int32 head_icon = 7;
+  int32 skull_icon = 8;
+  PlayerComposition composition = 9;
+
+  string name = 10;
+  int32 animation = 11;
+  int32 pose_animation = 12;
+  string overhead_text = 13;
+  bool dead = 14;
+  bool interacting = 15; // how to do this
+  int32 orientation = 16;
+
+  Point minimap_location = 17;
+  Rectangle bounds = 18;
+  Tile world_location = 19;
+  Tile region_location = 20;
+}
+
+message LoadedPlayers {
+  repeated Player players = 1;
 }
