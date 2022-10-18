@@ -4,7 +4,7 @@ option java_package = "io.paratek.grpc";
 
 service ClientService {
   rpc GetCamera(EmptyRequest) returns (Camera) {}
-  rpc GetScreen(EmptyRequest) returns (Screen) {}
+  rpc GetScreen(EmptyRequest) returns (Rectangle) {}
   rpc GetGameState(EmptyRequest) returns (GameState) {}
   rpc GetLoginState(EmptyRequest) returns (LoginState) {}
   rpc GetViewPort(EmptyRequest) returns (Rectangle) {}
@@ -65,13 +65,6 @@ message GameState {
 
 message LoginState {
   int32 state = 1;
-}
-
-message Screen {
-  int32 x = 1;
-  int32 y = 2;
-  int32 width = 3;
-  int32 height = 4;
 }
 
 message Camera {

@@ -36,10 +36,10 @@ public class ClientService extends ClientServiceGrpc.ClientServiceImplBase {
     }
 
     @Override
-    public void getScreen(Client.EmptyRequest request, StreamObserver<Client.Screen> responseObserver) {
+    public void getScreen(Client.EmptyRequest request, StreamObserver<Client.Rectangle> responseObserver) {
         final Point location = this.rlClient.getCanvas().getLocationOnScreen();
         final Rectangle bounds = this.rlClient.getCanvas().getBounds();
-        Client.Screen response = Client.Screen.newBuilder()
+        Client.Rectangle response = Client.Rectangle.newBuilder()
                 .setX(location.x)
                 .setY(location.y)
                 .setWidth(bounds.width)
